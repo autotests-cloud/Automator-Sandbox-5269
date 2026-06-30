@@ -14,7 +14,7 @@ on:
 
 concurrency:
   group: ui-tests-${{ github.ref }}-${{ github.event_name }}
-  cancel-in-progress: true
+  cancel-in-progress: ${{ github.event_name == 'push' }}
 
 permissions:
   contents: write
@@ -214,9 +214,6 @@ jobs:
             echo "- [Allure TestOps launch](${TESTOPS_LAUNCH_URL})" >> "$GITHUB_STEP_SUMMARY"
           elif [ "${TESTOPS_UPLOAD_EXIT:-}" != "" ] && [ "${TESTOPS_UPLOAD_EXIT}" != "0" ]; then
             echo "- Allure TestOps upload: _ошибка (см. шаг Upload results)_" >> "$GITHUB_STEP_SUMMARY"
-          fi
-          if [ "${TESTOPS_LAUNCH_CLOSED:-}" = "true" ]; then
-            echo "- TestOps launch: _закрыт (кейс → Active/automated)_" >> "$GITHUB_STEP_SUMMARY"
           fi
           if [ -n "${VIDEO_URL:-}" ]; then
             echo "- Selenoid video: \`${VIDEO_URL}\`" >> "$GITHUB_STEP_SUMMARY"
