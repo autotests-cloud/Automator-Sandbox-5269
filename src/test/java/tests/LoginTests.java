@@ -10,7 +10,6 @@ import org.junit.jupiter.api.Test;
 
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
-import static com.codeborne.selenide.Selenide.fail;
 import static com.codeborne.selenide.Selenide.open;
 import static io.qameta.allure.Allure.step;
 
@@ -31,15 +30,15 @@ public class LoginTests extends TestBase {
                 open(LOGIN_PAGE));
 
         step("When ввести `user1` в `[data-testid=login-input]`", () ->
-                fail("Шаг не распознан генератором — добавьте правило в gen-python-policy.json или реализуйте вручную"));
+                $("[data-testid=login-input]").setValue("user1"));
 
         step("When ввести `password1` в `[data-testid=password-input]`", () ->
-                fail("Шаг не распознан генератором — добавьте правило в gen-python-policy.json или реализуйте вручную"));
+                $("[data-testid=password-input]").setValue("password1"));
 
         step("When нажать `[data-testid=submit-button]`", () ->
                 $("[data-testid=submit-button]").click());
 
         step("Then проверить logged-in state", () ->
-                $("[data-testid=error-message]").shouldHave(text("...")));
+                $("[data-testid=welcome-message]").shouldHave(text("Добро пожаловать, user1!")));
     }
 }

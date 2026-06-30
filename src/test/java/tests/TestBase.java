@@ -9,8 +9,6 @@ import allure.Attachments;
 import config.ConfigReader;
 import config.TestConfig;
 import helpers.BrowserSessionHelper;
-import pages.LoginPage;
-import pages.LoggedInPage;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
@@ -25,9 +23,6 @@ import static com.codeborne.selenide.Selenide.closeWebDriver;
 
 public class TestBase {
 
-    LoginPage loginPage = new LoginPage();  
-    LoggedInPage loggedInPage = new LoggedInPage();
-    
     protected static final TestConfig config = ConfigReader.testConfig;
     private static final SimpleReport selenideReport = new SimpleReport();
 
