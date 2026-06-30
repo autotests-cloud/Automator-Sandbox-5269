@@ -13,7 +13,7 @@ on:
     branches: [main]
 
 concurrency:
-  group: ui-tests-${{ github.workflow }}-${{ github.ref }}
+  group: ui-tests-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: true
 
 permissions:
@@ -91,7 +91,7 @@ jobs:
           if [ -n "$TEST_CLASS" ]; then
             ./gradlew test --tests "$TEST_CLASS" "${GRADLE_ARGS[@]}"
           else
-            ./gradlew test "${GRADLE_ARGS[@]}" -DexcludeTags=visual
+            ./gradlew test --tests 'tests.*' "${GRADLE_ARGS[@]}" -DexcludeTags=visual
           fi
           echo "TEST_EXIT=$?" >> "$GITHUB_ENV"
           set -e
@@ -124,6 +124,24 @@ jobs:
             fi
           fi
           set -e
+
+      - name: Close TestOps launch
+        if: >-
+          always() &&
+          steps.testops-upload.outcome == 'success' &&
+          env.TEST_EXIT == '0' &&
+          env.TESTOPS_LAUNCH_URL != ''
+        continue-on-error: true
+        env:
+          ALLURE_TOKEN: ${{ secrets.ALLURE_TOKEN }}
+        run: |
+          LAUNCH_ID="${TESTOPS_LAUNCH_URL##*/}"
+          echo "Closing TestOps launch ${LAUNCH_ID}"
+          curl -fsS -X POST \
+            "${ALLURE_ENDPOINT%/}/api/rs/launch/${LAUNCH_ID}/close" \
+            -H "Authorization: Bearer ${ALLURE_TOKEN}" \
+            -H "Accept: application/json"
+          echo "TESTOPS_LAUNCH_CLOSED=true" >> "$GITHUB_ENV"
 
       - name: Download Selenoid video
         if: always()
@@ -196,6 +214,9 @@ jobs:
             echo "- [Allure TestOps launch](${TESTOPS_LAUNCH_URL})" >> "$GITHUB_STEP_SUMMARY"
           elif [ "${TESTOPS_UPLOAD_EXIT:-}" != "" ] && [ "${TESTOPS_UPLOAD_EXIT}" != "0" ]; then
             echo "- Allure TestOps upload: _ошибка (см. шаг Upload results)_" >> "$GITHUB_STEP_SUMMARY"
+          fi
+          if [ "${TESTOPS_LAUNCH_CLOSED:-}" = "true" ]; then
+            echo "- TestOps launch: _закрыт (кейс → Active/automated)_" >> "$GITHUB_STEP_SUMMARY"
           fi
           if [ -n "${VIDEO_URL:-}" ]; then
             echo "- Selenoid video: \`${VIDEO_URL}\`" >> "$GITHUB_STEP_SUMMARY"
