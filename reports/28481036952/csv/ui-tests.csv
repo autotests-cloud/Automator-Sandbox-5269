@@ -1,0 +1,46 @@
+Full Name,Name,Status,Duration,Error,Stack Trace,Steps,Parent Suite,Suite,Sub Suite,Epic,Feature,Story
+"tests.LoginTests.wrongPasswordAuthorizationTest","Авторизация не проходит при неверном пароле","failed","19s 281ms","Element should have text ""Неверный логин или пароль"" {[data-testid=error-message]}
+Element: '<p aria-live=""polite"" class=""error"" data-testid=""error-message"" id=""error-message"">Wrong login or password</p>'
+Actual value: text=""Wrong login or password""
+Screenshot: file:/home/runner/work/Automator-Sandbox-5269/Automator-Sandbox-5269/build/reports/tests/1782860047484.0.png
+Page source: file:/home/runner/work/Automator-Sandbox-5269/Automator-Sandbox-5269/build/reports/tests/1782860047484.0.html
+Timeout: 4s","Element should have text ""Неверный логин или пароль"" {[data-testid=error-message]}
+Element: '<p aria-live=""polite"" class=""error"" data-testid=""error-message"" id=""error-message"">Wrong login or password</p>'
+Actual value: text=""Wrong login or password""
+Screenshot: file:/home/runner/work/Automator-Sandbox-5269/Automator-Sandbox-5269/build/reports/tests/1782860047484.0.png
+Page source: file:/home/runner/work/Automator-Sandbox-5269/Automator-Sandbox-5269/build/reports/tests/1782860047484.0.html
+Timeout: 4s
+	at com.codeborne.selenide.impl.WebElementSource.handleError(WebElementSource.java:146)
+	at com.codeborne.selenide.impl.WebElementSource.checkConditionAndReturnElement(WebElementSource.java:123)
+	at com.codeborne.selenide.impl.WebElementSource.checkCondition(WebElementSource.java:99)
+	at com.codeborne.selenide.commands.Should.execute(Should.java:24)
+	at com.codeborne.selenide.FluentCommand.execute(FluentCommand.java:27)
+	at com.codeborne.selenide.FluentCommand.execute(FluentCommand.java:19)
+	at com.codeborne.selenide.commands.Commands.execute(Commands.java:161)
+	at com.codeborne.selenide.impl.SelenideElementProxy.dispatchAndRetry(SelenideElementProxy.java:138)
+	at com.codeborne.selenide.impl.SelenideElementProxy.invoke(SelenideElementProxy.java:90)
+	at jdk.proxy3/jdk.proxy3.$Proxy52.shouldHave(Unknown Source)
+	at tests.LoginTests.lambda$wrongPasswordAuthorizationTest$10(LoginTests.java:68)
+	at io.qameta.allure.Allure.lambda$step$1(Allure.java:127)
+	at io.qameta.allure.Allure.step(Allure.java:181)
+	at io.qameta.allure.Allure.step(Allure.java:125)
+	at tests.LoginTests.wrongPasswordAuthorizationTest(LoginTests.java:67)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1312)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1843)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1808)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188)
+","Given открыть `/text-box.html` passed (7s 565ms)
+  $(""open"") https://qa-guru.github.io/one-page-form/text-box.html passed (7s 559ms)
+    $(""webdriver"") create() passed (7s 102ms)
+ When нажать `[data-testid=login-link]` passed (1s 15ms)
+   $(""[data-testid=login-link]"") click() passed (992ms)
+  When ввести `user1` в `[data-testid=login-input]` passed (1s 180ms)
+    $(""[data-testid=login-input]"") set value(user1) passed (1s 180ms)
+   When ввести неверный пароль в `[data-testid=password-input]` passed (1s 109ms)
+     $(""[data-testid=password-input]"") set value(wrongpassword) passed (1s 109ms)
+    When нажать `[data-testid=submit-button]` passed (753ms)
+      $(""[data-testid=submit-button]"") click() passed (753ms)
+     Then проверить ""Неверный логин или пароль"" failed (6s 506ms)
+       $(""[data-testid=error-message]"") should have(text ""Неверный логин или пароль"") failed (6s 503ms)",,"Авторизация",,"Одностраничная форма","Авторизация",

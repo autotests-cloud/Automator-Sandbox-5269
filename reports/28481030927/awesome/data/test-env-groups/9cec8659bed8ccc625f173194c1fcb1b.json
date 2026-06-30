@@ -1,1 +1,0 @@
-{"id":"9cec8659bed8ccc625f173194c1fcb1b","fullName":"config.ConfigReaderTest.resolveBaseUrlFailsWhenLoginHtmlMissing","name":"resolveBaseUrl fails when login.html is missing in basePath","status":"passed","testResultsByEnv":{"default":"4ccb146b83ccbbd8224d146974a24441"}}
