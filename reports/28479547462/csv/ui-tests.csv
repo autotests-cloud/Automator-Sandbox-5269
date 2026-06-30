@@ -1,0 +1,6 @@
+Full Name,Name,Status,Duration,Error,Stack Trace,Steps,Parent Suite,Suite,Sub Suite,Epic,Feature,Story
+"tests.LoginTests.successfulAuthorizationTest","Успешная авторизация с валидными учётными данными","passed","10s 480ms",,,"Given открыть `/login.html?ru` passed (6s 177ms)
+ When ввести `user1` в `[data-testid=login-input]` passed (1s 475ms)
+  When ввести `password1` в `[data-testid=password-input]` passed (1s 243ms)
+   When нажать `[data-testid=submit-button]` passed (842ms)
+    Then проверить logged-in state passed (595ms)",,"Авторизация",,"Одностраничная форма","Авторизация",

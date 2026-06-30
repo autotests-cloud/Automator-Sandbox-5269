@@ -1,1 +1,0 @@
-{"id":"b0c5fcaceed980cfa197e215d2638814","fullName":"config.ConfigReaderTest.resolveBaseUrlAddsTrailingSlash","name":"resolveBaseUrl adds trailing slash to HTTP baseUrl","status":"passed","testResultsByEnv":{"default":"1245ba2dfd35883b8f647f1b4ffb3bbf"}}
