@@ -64,7 +64,7 @@ jobs:
           fi
 
       - name: Install allurectl
-        if: vars.ALLURE_PROJECT_ID != '' && secrets.ALLURE_TOKEN != ''
+        if: vars.ALLURE_PROJECT_ID != ''
         continue-on-error: true
         id: setup-allurectl
         uses: allure-framework/setup-allurectl@v1
