@@ -64,7 +64,7 @@ public class LoginTests extends TestBase {
         step("When нажать `[data-testid=submit-button]`", () ->
                 $("[data-testid=submit-button]").click());
 
-        step("Then проверить \"Неверный логин или пароль\"", () ->
-                $("[data-testid=error-message]").shouldHave(text("Неверный логин или пароль")));
+        step("Then проверить \"Wrong login or password\"", () ->
+                $("[data-testid=error-message]").shouldHave(text("Wrong login or password")));
     }
 }
