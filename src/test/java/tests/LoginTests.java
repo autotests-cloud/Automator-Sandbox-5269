@@ -41,4 +41,29 @@ public class LoginTests extends TestBase {
         step("Then проверить logged-in state", () ->
                 $("[data-testid=welcome-message]").shouldHave(text("Добро пожаловать, user1!")));
     }
+
+
+    @Test
+    @AllureId("45341")
+    @Tag("negative")
+    @DisplayName("Авторизация не проходит при неверном пароле")
+    void wrongPasswordAuthorizationTest() {
+        step("Given открыть `/text-box.html`", () ->
+                open(LOGIN_PAGE));
+
+        step("When нажать `[data-testid=login-link]`", () ->
+                fail("Шаг не распознан генератором — добавьте правило в gen-python-policy.json или реализуйте вручную"));
+
+        step("When ввести `user1` в `[data-testid=login-input]`", () ->
+                $("[data-testid=login-input]").setValue("user1"));
+
+        step("When ввести неверный пароль в `[data-testid=password-input]`", () ->
+                $("[data-testid=password-input]").setValue("wrongpassword"));
+
+        step("When нажать `[data-testid=submit-button]`", () ->
+                $("[data-testid=submit-button]").click());
+
+        step("Then проверить \"Неверный логин или пароль\"", () ->
+                $("[data-testid=error-message]").shouldHave(text("Неверный логин или пароль")));
+    }
 }
