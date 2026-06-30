@@ -76,10 +76,22 @@ jobs:
       - name: Run UI tests on Selenoid
         run: |
           set +e
+          GRADLE_ARGS=(
+            -Denv=ci
+            -DbrowserVersion="${BROWSER_VERSION}"
+            -DenableVideo=true
+            -DattachVideo=true
+            -DattachLastScreenshot=true
+            -DattachPageSource=true
+            -DenableAllureSelenideListener=true
+            -DallureReportMode=allure3
+            -DlogToConsole=false
+            -DselenideLogToConsole=false
+          )
           if [ -n "$TEST_CLASS" ]; then
-            ./gradlew test --tests "$TEST_CLASS" -Denv=ci -DbrowserVersion="${BROWSER_VERSION}"
+            ./gradlew test --tests "$TEST_CLASS" "${GRADLE_ARGS[@]}"
           else
-            ./gradlew test -Denv=ci -DbrowserVersion="${BROWSER_VERSION}"
+            ./gradlew test "${GRADLE_ARGS[@]}" -DexcludeTags=visual
           fi
           echo "TEST_EXIT=$?" >> "$GITHUB_ENV"
           set -e
