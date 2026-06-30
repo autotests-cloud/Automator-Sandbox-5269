@@ -1,0 +1,14 @@
+Full Name,Name,Status,Duration,Error,Stack Trace,Steps,Parent Suite,Suite,Sub Suite,Epic,Feature,Story
+"tests.LoginTests.wrongPasswordAuthorizationTest","Авторизация не проходит при неверном пароле","passed","14s 869ms",,,"Given открыть `/text-box.html` passed (7s 889ms)
+  $(""open"") https://qa-guru.github.io/one-page-form/text-box.html passed (7s 880ms)
+    $(""webdriver"") create() passed (7s 561ms)
+ When нажать `[data-testid=login-link]` passed (1s 264ms)
+   $(""[data-testid=login-link]"") click() passed (1s 241ms)
+  When ввести `user1` в `[data-testid=login-input]` passed (1s 430ms)
+    $(""[data-testid=login-input]"") set value(user1) passed (1s 429ms)
+   When ввести неверный пароль в `[data-testid=password-input]` passed (1s 265ms)
+     $(""[data-testid=password-input]"") set value(wrongpassword) passed (1s 265ms)
+    When нажать `[data-testid=submit-button]` passed (841ms)
+      $(""[data-testid=submit-button]"") click() passed (841ms)
+     Then проверить ""Wrong login or password"" passed (613ms)
+       $(""[data-testid=error-message]"") should have(text ""Wrong login or password"") passed (611ms)",,"Авторизация",,"Одностраничная форма","Авторизация",
