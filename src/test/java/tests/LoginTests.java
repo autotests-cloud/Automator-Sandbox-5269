@@ -1,0 +1,45 @@
+package tests;
+
+import annotations.Layer;
+import io.qameta.allure.AllureId;
+import io.qameta.allure.Epic;
+import io.qameta.allure.Feature;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Tag;
+import org.junit.jupiter.api.Test;
+
+import static com.codeborne.selenide.Condition.text;
+import static com.codeborne.selenide.Selenide.$;
+import static com.codeborne.selenide.Selenide.fail;
+import static com.codeborne.selenide.Selenide.open;
+import static io.qameta.allure.Allure.step;
+
+@Layer("e2e")
+@Epic("Одностраничная форма")
+@Feature("Авторизация")
+@DisplayName("Авторизация")
+public class LoginTests extends TestBase {
+
+    private static final String LOGIN_PAGE = "login.html?ru";
+
+    @Test
+    @AllureId("45327")
+    @Tag("positive")
+    @DisplayName("Успешная авторизация с валидными учётными данными")
+    void successfulAuthorizationTest() {
+        step("Given открыть `/login.html?ru`", () ->
+                open(LOGIN_PAGE));
+
+        step("When ввести `user1` в `[data-testid=login-input]`", () ->
+                fail("Шаг не распознан генератором — добавьте правило в gen-python-policy.json или реализуйте вручную"));
+
+        step("When ввести `password1` в `[data-testid=password-input]`", () ->
+                fail("Шаг не распознан генератором — добавьте правило в gen-python-policy.json или реализуйте вручную"));
+
+        step("When нажать `[data-testid=submit-button]`", () ->
+                $("[data-testid=submit-button]").click());
+
+        step("Then проверить logged-in state", () ->
+                $("[data-testid=error-message]").shouldHave(text("...")));
+    }
+}
