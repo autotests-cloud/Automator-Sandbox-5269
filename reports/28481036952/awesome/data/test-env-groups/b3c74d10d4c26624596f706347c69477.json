@@ -1,1 +1,0 @@
-{"id":"b3c74d10d4c26624596f706347c69477","fullName":"tests.LoginTests.wrongPasswordAuthorizationTest","name":"Авторизация не проходит при неверном пароле","status":"failed","testResultsByEnv":{"default":"6ed44b1d5d60a8557016a5994dc57ed9"}}
