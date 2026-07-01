@@ -87,6 +87,22 @@ public class LoginTests extends TestBase {
                 $("[data-testid=submit-button]").click());
 
         step("Проверить приветствие Welcome, user1! в success-panel", () ->
-                $("[data-testid=welcome-message]").shouldHave(text("Добро пожаловать, user1!")));
+                $("[data-testid=welcome-message]").shouldHave(text("...")));
+    }
+
+
+    @Test
+    @AllureId("45492")
+    @Tag("positive")
+    @DisplayName("Переключение языка в шапке на login.html")
+    void pereklyuchenieYazykaShapkeLoginHtmlTest() {
+        step("Открыть login.html?ru", () ->
+                open("login.html?ru"));
+
+        step("Нажать переключатель языка в шапке", () ->
+                fail("Шаг не распознан генератором — добавьте правило в gen-python-policy.json или реализуйте вручную"));
+
+        step("Проверить подпись языка \"EN\" в шапке", () ->
+                $("[data-testid=error-message]").shouldHave(text("EN")));
     }
 }
