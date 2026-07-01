@@ -87,6 +87,6 @@ public class LoginTests extends TestBase {
                 $("[data-testid=submit-button]").click());
 
         step("Проверить приветствие Welcome, user1! в success-panel", () ->
-                $("[data-testid=welcome-message]").shouldHave(text("...")));
+                $("[data-testid=welcome-message]").shouldHave(text("Добро пожаловать, user1!")));
     }
 }
