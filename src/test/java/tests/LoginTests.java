@@ -67,4 +67,26 @@ public class LoginTests extends TestBase {
         step("Then проверить \"Wrong login or password\"", () ->
                 $("[data-testid=error-message]").shouldHave(text("Wrong login or password")));
     }
+
+
+    @Test
+    @AllureId("45353")
+    @Tag("positive")
+    @DisplayName("Вход покупателя в личный кабинет интернет-магазина")
+    void vhodPokupatelyaLichnyyKabinetInternetMagazinaTest() {
+        step("Открыть страницу входа в личный кабинет (https://ozon.ru/login.html?ru)", () ->
+                open("login.html?ru"));
+
+        step("Ввести логин покупателя user1 в поле login-input", () ->
+                $("[data-testid=login-input]").setValue("user1"));
+
+        step("Ввести пароль password1 в поле password-input", () ->
+                $("[data-testid=password-input]").setValue("password1"));
+
+        step("Нажать кнопку submit-button для входа в кабинет", () ->
+                $("[data-testid=submit-button]").click());
+
+        step("Проверить приветствие Welcome, user1! в success-panel", () ->
+                $("[data-testid=welcome-message]").shouldHave(text("...")));
+    }
 }
