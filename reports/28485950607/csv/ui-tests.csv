@@ -1,0 +1,12 @@
+Full Name,Name,Status,Duration,Error,Stack Trace,Steps,Parent Suite,Suite,Sub Suite,Epic,Feature,Story
+"tests.LoginTests.vhodPokupatelyaLichnyyKabinetInternetMagazinaTest","Вход покупателя в личный кабинет интернет-магазина","passed","15s 389ms",,,"Открыть страницу входа в личный кабинет (https://ozon.ru/login.html?ru) passed (8s 233ms)
+  $(""open"") https://qa-guru.github.io/one-page-form/login.html?ru passed (8s 226ms)
+    $(""webdriver"") create() passed (7s 858ms)
+ Ввести логин покупателя user1 в поле login-input passed (1s 852ms)
+   $(""[data-testid=login-input]"") set value(user1) passed (1s 831ms)
+  Ввести пароль password1 в поле password-input passed (1s 566ms)
+    $(""[data-testid=password-input]"") set value(password1) passed (1s 566ms)
+   Нажать кнопку submit-button для входа в кабинет passed (1s 69ms)
+     $(""[data-testid=submit-button]"") click() passed (1s 68ms)
+    Проверить приветствие Welcome, user1! в success-panel passed (746ms)
+      $(""[data-testid=welcome-message]"") should have(text ""Добро пожаловать, user1!"") passed (744ms)",,"Авторизация",,"Одностраничная форма","Авторизация",
