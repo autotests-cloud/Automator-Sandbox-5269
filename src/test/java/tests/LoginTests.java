@@ -105,4 +105,20 @@ public class LoginTests extends TestBase {
         step("Проверить подпись языка \"EN\" в шапке", () ->
                 $("[data-testid=error-message]").shouldHave(text("EN")));
     }
+
+
+    @Test
+    @AllureId("45727")
+    @Tag("positive")
+    @DisplayName("Переключение темы в шапке на login.html")
+    void pereklyuchenieTemyShapkeLoginHtmlTest() {
+        step("Открыть login.html?ru", () ->
+                open("login.html?ru"));
+
+        step("Нажать кнопку переключения темы в шапке", () ->
+                $("[data-testid=submit-button]").click());
+
+        step("Проверить что html имеет класс theme-dark", () ->
+                $("[data-testid=error-message]").shouldHave(text("...")));
+    }
 }
