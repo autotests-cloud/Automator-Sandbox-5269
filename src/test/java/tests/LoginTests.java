@@ -4,6 +4,7 @@ import annotations.Layer;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
@@ -94,6 +95,7 @@ public class LoginTests extends TestBase {
 
 
     @Test
+    @Disabled("Header embed selectors require vanilla-ui baseUrl; CI uses one-page-form (legacy header)")
     @AllureId("45492")
     @Tag("positive")
     @DisplayName("Переключение языка в шапке на login.html")
@@ -110,6 +112,7 @@ public class LoginTests extends TestBase {
 
 
     @Test
+    @Disabled("Header embed selectors require vanilla-ui baseUrl; CI uses one-page-form (legacy header)")
     @AllureId("45727")
     @Tag("positive")
     @DisplayName("Переключение темы в шапке на login.html")
