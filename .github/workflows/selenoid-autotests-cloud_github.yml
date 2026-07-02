@@ -1,8 +1,21 @@
-name: UI Tests
+# Synced from template-project ethalon: tests-java/.github/_ethalon/selenoid-autotests-cloud_github.yml
+# Runnable filename = ethalon filename. Default: -Denv=selenoid-autotests-cloud_github_e2e
+
+name: Automator-Sandbox-5269 Tests
 
 on:
   workflow_dispatch:
     inputs:
+      env_profile:
+        description: "Env profile (-Denv=), e.g. selenoid-autotests-cloud_github_e2e"
+        required: false
+        default: selenoid-autotests-cloud_github_e2e
+      include_tags:
+        description: "JUnit includeTags (comma-separated); empty = slice default"
+        required: false
+      exclude_tags:
+        description: "JUnit excludeTags (comma-separated); empty = slice default"
+        required: false
       test_class:
         description: "Fully qualified test (optional), e.g. tests.LoginTests.successfulAuthorizationTest"
         required: false
@@ -13,24 +26,27 @@ on:
     branches: [main]
 
 concurrency:
-  group: ui-tests-${{ github.ref }}-${{ github.event_name }}
+  group: selenoid-autotests-cloud_github-${{ github.ref }}-${{ github.event_name }}
   cancel-in-progress: ${{ github.event_name == 'push' }}
 
 permissions:
   contents: write
 
 jobs:
-  ui-tests:
-    name: UI Tests
+  app-e2e:
+    name: App e2e
     runs-on: ubuntu-latest
     timeout-minutes: 45
     env:
       ALLURE_ENDPOINT: ${{ vars.ALLURE_ENDPOINT || 'https://allure.autotests.cloud' }}
       ALLURE_RESULTS: build/allure-results
       BROWSER_VERSION: "148"
+      ENV_PROFILE: ${{ github.event.inputs.env_profile || 'selenoid-autotests-cloud_github_e2e' }}
       REPORT_ID: ${{ github.run_id }}
       TEST_CLASS: ${{ github.event.inputs.test_class || '' }}
       TEST_CASE_ID: ${{ github.event.inputs.test_case_id || '' }}
+      INCLUDE_TAGS: ${{ github.event.inputs.include_tags || '' }}
+      EXCLUDE_TAGS: ${{ github.event.inputs.exclude_tags || '' }}
 
     steps:
       - name: Checkout
@@ -73,27 +89,38 @@ jobs:
           allure-token: ${{ secrets.ALLURE_TOKEN }}
           allure-project-id: ${{ vars.ALLURE_PROJECT_ID }}
 
-      - name: Run UI tests on Selenoid
+      - name: Run app e2e tests
         run: |
           set +e
           GRADLE_ARGS=(
-            -Denv=ci
+            -Denv="${ENV_PROFILE}"
             -DbrowserVersion="${BROWSER_VERSION}"
-            -DenableVideo=true
-            -DattachVideo=true
-            -DattachLastScreenshot=true
-            -DattachPageSource=true
-            -DenableAllureSelenideListener=true
-            -DallureReportMode=allure3
-            -DlogToConsole=false
-            -DselenideLogToConsole=false
+            -Djunit.jupiter.execution.parallel.config.fixed.parallelism=3
           )
+          if [ -n "$INCLUDE_TAGS" ]; then
+            GRADLE_ARGS+=(-DincludeTags="$INCLUDE_TAGS")
+          elif [[ "${ENV_PROFILE}" == *_visual ]]; then
+            GRADLE_ARGS+=(-DincludeTags=visual)
+          else
+            GRADLE_ARGS+=(-DincludeTags=smoke -DexcludeTags=visual)
+          fi
+          if [ -n "$EXCLUDE_TAGS" ]; then
+            GRADLE_ARGS+=(-DexcludeTags="$EXCLUDE_TAGS")
+          fi
           if [ -n "$TEST_CLASS" ]; then
             ./gradlew test --tests "$TEST_CLASS" "${GRADLE_ARGS[@]}"
           else
-            ./gradlew test --tests 'tests.*' "${GRADLE_ARGS[@]}" -DexcludeTags=visual
+            ./gradlew test "${GRADLE_ARGS[@]}"
           fi
           echo "TEST_EXIT=$?" >> "$GITHUB_ENV"
+          set -e
+
+      - name: Allure 3 quality gate
+        if: always() && hashFiles('build/allure-results/**') != ''
+        run: |
+          set +e
+          ./gradlew allureQualityGate
+          echo "QUALITY_GATE_EXIT=$?" >> "$GITHUB_ENV"
           set -e
 
       - name: Upload results to Allure TestOps
@@ -107,7 +134,7 @@ jobs:
           if [ -n "$TEST_CASE_ID" ]; then
             export ALLURE_LAUNCH_NAME="TestOps #${TEST_CASE_ID} — ${GITHUB_REPOSITORY} #${GITHUB_RUN_NUMBER}"
           else
-            export ALLURE_LAUNCH_NAME="UI Tests — ${GITHUB_REPOSITORY} #${GITHUB_RUN_NUMBER}"
+            export ALLURE_LAUNCH_NAME="App e2e — ${GITHUB_REPOSITORY} #${GITHUB_RUN_NUMBER}"
           fi
           allurectl upload build/allure-results 2>&1 | tee allurectl-upload.log
           UPLOAD_EXIT=${PIPESTATUS[0]}
@@ -202,8 +229,9 @@ jobs:
         if: always()
         run: |
           REPORT_URL="https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}/reports/${REPORT_ID}/awesome/index.html"
-          echo "## UI Tests" >> "$GITHUB_STEP_SUMMARY"
+          echo "## Automator-Sandbox-5269 Tests" >> "$GITHUB_STEP_SUMMARY"
           echo "" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Env profile: \`${ENV_PROFILE}\`" >> "$GITHUB_STEP_SUMMARY"
           echo "- [GitHub Actions run](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})" >> "$GITHUB_STEP_SUMMARY"
           if [ -f build/reports/allure-report/allureReport/awesome/index.html ]; then
             echo "- [Allure 3 report](${REPORT_URL})" >> "$GITHUB_STEP_SUMMARY"
@@ -218,7 +246,19 @@ jobs:
           if [ -n "${VIDEO_URL:-}" ]; then
             echo "- Selenoid video: \`${VIDEO_URL}\`" >> "$GITHUB_STEP_SUMMARY"
           fi
+          if [ "${QUALITY_GATE_EXIT:-}" = "0" ]; then
+            echo "- Allure 3 quality gate: passed (\`maxFailures: 0\`)" >> "$GITHUB_STEP_SUMMARY"
+          elif [ -n "${QUALITY_GATE_EXIT:-}" ]; then
+            echo "- Allure 3 quality gate: **failed** (exit ${QUALITY_GATE_EXIT})" >> "$GITHUB_STEP_SUMMARY"
+          fi
 
-      - name: Fail if tests failed
-        if: always() && env.TEST_EXIT != '0'
-        run: exit "${{ env.TEST_EXIT }}"
+      - name: Fail if tests or quality gate failed
+        if: >-
+          always() &&
+          (env.TEST_EXIT != '0' ||
+           (env.QUALITY_GATE_EXIT != '' && env.QUALITY_GATE_EXIT != '0'))
+        run: |
+          if [ "${TEST_EXIT}" != "0" ]; then
+            exit "${TEST_EXIT}"
+          fi
+          exit "${QUALITY_GATE_EXIT}"
