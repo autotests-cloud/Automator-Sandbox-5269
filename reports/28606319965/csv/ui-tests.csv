@@ -1,0 +1,67 @@
+Full Name,Name,Status,Duration,Error,Stack Trace,Steps,Parent Suite,Suite,Sub Suite,Epic,Feature,Story
+"tests.LoginTests.pereklyuchenieYazykaShapkeLoginHtmlTest","Переключение языка в шапке на login.html","failed","21s 336ms","Element not found {[data-testid=header-lang-toggle]}
+Expected: clickable: interactable and enabled
+Screenshot: file:/home/runner/work/Automator-Sandbox-5269/Automator-Sandbox-5269/build/reports/tests/1783010447711.0.png
+Page source: file:/home/runner/work/Automator-Sandbox-5269/Automator-Sandbox-5269/build/reports/tests/1783010447711.0.html
+Timeout: 4s
+Caused by: NoSuchElementException: no such element: Unable to locate element: {""method"":""css selector"",""selector"":""[data-testid=header-lang-toggle]""}","Element not found {[data-testid=header-lang-toggle]}
+Expected: clickable: interactable and enabled
+Screenshot: file:/home/runner/work/Automator-Sandbox-5269/Automator-Sandbox-5269/build/reports/tests/1783010447711.0.png
+Page source: file:/home/runner/work/Automator-Sandbox-5269/Automator-Sandbox-5269/build/reports/tests/1783010447711.0.html
+Timeout: 4s
+Caused by: NoSuchElementException: no such element: Unable to locate element: {""method"":""css selector"",""selector"":""[data-testid=header-lang-toggle]""}
+	at com.codeborne.selenide.impl.WebElementSource.createElementNotFoundError(WebElementSource.java:89)
+	at com.codeborne.selenide.impl.ElementFinder.createElementNotFoundError(ElementFinder.java:129)
+	at com.codeborne.selenide.impl.WebElementSource.handleError(WebElementSource.java:140)
+	at com.codeborne.selenide.impl.WebElementSource.checkConditionAndReturnElement(WebElementSource.java:123)
+	at com.codeborne.selenide.impl.WebElementSource.findAndAssertElementIsClickable(WebElementSource.java:169)
+	at com.codeborne.selenide.commands.Click.findElement(Click.java:53)
+	at com.codeborne.selenide.commands.Click.execute(Click.java:39)
+	at com.codeborne.selenide.FluentCommand.execute(FluentCommand.java:27)
+	at com.codeborne.selenide.FluentCommand.execute(FluentCommand.java:19)
+	at com.codeborne.selenide.commands.Commands.execute(Commands.java:161)
+	at com.codeborne.selenide.impl.SelenideElementProxy.dispatchAndRetry(SelenideElementProxy.java:138)
+	at com.codeborne.selenide.impl.SelenideElementProxy.invoke(SelenideElementProxy.java:90)
+	at jdk.proxy3/jdk.proxy3.$Proxy52.click(Unknown Source)
+	at tests.LoginTests.lambda$pereklyuchenieYazykaShapkeLoginHtmlTest$17(LoginTests.java:105)
+	at io.qameta.allure.Allure.lambda$step$0(Allure.java:113)
+	at io.qameta.allure.Allure.lambda$step$1(Allure.java:127)
+	at io.qameta.allure.Allure.step(Allure.java:181)
+	at io.qameta.allure.Allure.step(Allure.java:125)
+	at io.qameta.allure.Allure.step(Allure.java:112)
+	at tests.LoginTests.pereklyuchenieYazykaShapkeLoginHtmlTest(LoginTests.java:104)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at java.base/java.util.concurrent.ForkJoinTask.doExec(ForkJoinTask.java:387)
+	at java.base/java.util.concurrent.ForkJoinPool$WorkQueue.topLevelExec(ForkJoinPool.java:1312)
+	at java.base/java.util.concurrent.ForkJoinPool.scan(ForkJoinPool.java:1843)
+	at java.base/java.util.concurrent.ForkJoinPool.runWorker(ForkJoinPool.java:1808)
+	at java.base/java.util.concurrent.ForkJoinWorkerThread.run(ForkJoinWorkerThread.java:188)
+Caused by: org.openqa.selenium.NoSuchElementException: no such element: Unable to locate element: {""method"":""css selector"",""selector"":""[data-testid=header-lang-toggle]""}
+  (Session info: chrome=148.0.7778.96)
+For documentation on this error, please visit: https://www.selenium.dev/documentation/webdriver/troubleshooting/errors#nosuchelementexception
+Build info: version: '4.44.0', revision: 'da2039b'
+System info: os.name: 'Linux', os.arch: 'amd64', os.version: '6.17.0-1018-azure', java.version: '21.0.11'
+Driver info: org.openqa.selenium.remote.RemoteWebDriver$ByteBuddy$OG3nJ3yX$ByteBuddy$ol84vA2A
+Command: [9b969503ddb9ef62d671577417806e8d, findElement {using=css selector, value=[data-testid=header-lang-toggle]}]
+Capabilities {acceptInsecureCerts: true, browserName: chrome, browserVersion: 148.0.7778.96, chrome: {chromedriverVersion: 148.0.7778.97 (6b3fa66a923a..., userDataDir: /tmp/org.chromium.Chromium....}, fedcm:accounts: true, goog:chromeOptions: {debuggerAddress: localhost:46541}, goog:processID: 117, networkConnectionEnabled: false, pageLoadStrategy: normal, platformName: linux, proxy: Proxy(), se:cdp: ws://selenoid.autotests.clo..., se:cdpVersion: 148.0.7778.96, setWindowRect: true, strictFileInteractability: false, timeouts: {implicit: 0, pageLoad: 300000, script: 30000}, unhandledPromptBehavior: ignore, webauthn:extension:credBlob: true, webauthn:extension:largeBlob: true, webauthn:extension:minPinLength: true, webauthn:extension:prf: true, webauthn:virtualAuthenticators: true}
+Session ID: 9b969503ddb9ef62d671577417806e8d
+	at org.openqa.selenium.remote.ErrorCodec.decode(ErrorCodec.java:169)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:143)
+	at org.openqa.selenium.remote.codec.w3c.W3CHttpResponseCodec.decode(W3CHttpResponseCodec.java:50)
+	at org.openqa.selenium.remote.HttpCommandExecutor.execute(HttpCommandExecutor.java:224)
+	at org.openqa.selenium.remote.RemoteWebDriver.execute(RemoteWebDriver.java:600)
+	at org.openqa.selenium.remote.ElementLocation$ElementFinder$2.findElement(ElementLocation.java:173)
+	at org.openqa.selenium.remote.ElementLocation.findElement(ElementLocation.java:60)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:421)
+	at org.openqa.selenium.remote.RemoteWebDriver.findElement(RemoteWebDriver.java:415)
+	at com.codeborne.selenide.impl.WebElementSelector.findElement(WebElementSelector.java:67)
+	at com.codeborne.selenide.impl.WebElementSelector.findElement(WebElementSelector.java:38)
+	at com.codeborne.selenide.impl.WebElementSelector.findElement(WebElementSelector.java:29)
+	at com.codeborne.selenide.impl.ElementFinder.getWebElement(ElementFinder.java:113)
+	at com.codeborne.selenide.impl.WebElementSource.checkConditionAndReturnElement(WebElementSource.java:112)
+	... 22 more
+","Открыть login.html?ru passed (14s 53ms)
+  $(""open"") https://qa-guru.github.io/one-page-form/login.html?ru passed (14s 49ms)
+    $(""webdriver"") create() passed (13s 481ms)
+ Нажать переключатель языка в шапке failed (5s 764ms)
+   $(""[data-testid=header-lang-toggle]"") click() failed (5s 740ms)",,"Авторизация",,"Одностраничная форма","Авторизация",
