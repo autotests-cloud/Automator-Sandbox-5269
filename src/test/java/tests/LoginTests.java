@@ -4,13 +4,10 @@ import annotations.Layer;
 import io.qameta.allure.AllureId;
 import io.qameta.allure.Epic;
 import io.qameta.allure.Feature;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
-import static com.codeborne.selenide.Condition.cssClass;
-import static com.codeborne.selenide.Condition.not;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -91,39 +88,5 @@ public class LoginTests extends TestBase {
 
         step("Проверить приветствие Welcome, user1! в success-panel", () ->
                 $("[data-testid=welcome-message]").shouldHave(text("Добро пожаловать, user1!")));
-    }
-
-
-    @Test
-    @Disabled("Header embed selectors require vanilla-ui baseUrl; CI uses one-page-form (legacy header)")
-    @AllureId("45492")
-    @Tag("positive")
-    @DisplayName("Переключение языка в шапке на login.html")
-    void pereklyuchenieYazykaShapkeLoginHtmlTest() {
-        step("Открыть login.html?ru", () ->
-                open("login.html?ru"));
-
-        step("Нажать переключатель языка в шапке", () ->
-                $("[data-testid=header-lang-toggle]").click());
-
-        step("Проверить подпись языка \"EN\" в шапке", () ->
-                $("[data-testid=header-lang-label]").shouldHave(text("EN")));
-    }
-
-
-    @Test
-    @Disabled("Header embed selectors require vanilla-ui baseUrl; CI uses one-page-form (legacy header)")
-    @AllureId("45727")
-    @Tag("positive")
-    @DisplayName("Переключение темы в шапке на login.html")
-    void pereklyuchenieTemyShapkeLoginHtmlTest() {
-        step("Открыть login.html?ru", () ->
-                open("login.html?ru"));
-
-        step("Нажать кнопку переключения темы в шапке", () ->
-                $("[data-testid=header-theme-toggle]").click());
-
-        step("Проверить что html имеет класс theme-dark", () ->
-                $("html").should(not(cssClass("theme-light"))));
     }
 }
