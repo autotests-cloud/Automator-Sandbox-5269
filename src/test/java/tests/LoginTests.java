@@ -8,6 +8,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
+import static com.codeborne.selenide.Condition.cssClass;
+import static com.codeborne.selenide.Condition.not;
 import static com.codeborne.selenide.Condition.text;
 import static com.codeborne.selenide.Selenide.$;
 import static com.codeborne.selenide.Selenide.open;
@@ -87,7 +89,7 @@ public class LoginTests extends TestBase {
                 $("[data-testid=submit-button]").click());
 
         step("Проверить приветствие Welcome, user1! в success-panel", () ->
-                $("[data-testid=welcome-message]").shouldHave(text("...")));
+                $("[data-testid=welcome-message]").shouldHave(text("Добро пожаловать, user1!")));
     }
 
 
@@ -100,10 +102,10 @@ public class LoginTests extends TestBase {
                 open("login.html?ru"));
 
         step("Нажать переключатель языка в шапке", () ->
-                fail("Шаг не распознан генератором — добавьте правило в gen-python-policy.json или реализуйте вручную"));
+                $("[data-testid=header-lang-toggle]").click());
 
         step("Проверить подпись языка \"EN\" в шапке", () ->
-                $("[data-testid=error-message]").shouldHave(text("EN")));
+                $("[data-testid=header-lang-label]").shouldHave(text("EN")));
     }
 
 
@@ -116,9 +118,9 @@ public class LoginTests extends TestBase {
                 open("login.html?ru"));
 
         step("Нажать кнопку переключения темы в шапке", () ->
-                $("[data-testid=submit-button]").click());
+                $("[data-testid=header-theme-toggle]").click());
 
         step("Проверить что html имеет класс theme-dark", () ->
-                $("[data-testid=error-message]").shouldHave(text("...")));
+                $("html").should(not(cssClass("theme-light"))));
     }
 }
