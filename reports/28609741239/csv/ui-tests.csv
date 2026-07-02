@@ -1,0 +1,12 @@
+Full Name,Name,Status,Duration,Error,Stack Trace,Steps,Parent Suite,Suite,Sub Suite,Epic,Feature,Story
+"tests.LoginTests.successfulAuthorizationTest45746","Успешная авторизация через login.html","passed","13s 625ms",,,"Открыть login.html?ru passed (8s 45ms)
+  $(""open"") https://qa-guru.github.io/one-page-form/login.html?ru passed (8s 40ms)
+    $(""webdriver"") create() passed (7s 478ms)
+ Ввести user1 в поле логина passed (1s 445ms)
+   $(""[data-testid=login-input]"") set value(user1) passed (1s 418ms)
+  Ввести password1 в поле пароля passed (1s 192ms)
+    $(""[data-testid=password-input]"") set value(password1) passed (1s 192ms)
+   Нажать кнопку submit passed (798ms)
+     $(""[data-testid=submit-button]"") click() passed (797ms)
+    Проверить приветствие ""Добро пожаловать, user1!"" passed (562ms)
+      $(""[data-testid=welcome-message]"") should have(text ""Добро пожаловать, user1!"") passed (560ms)",,"Авторизация",,"Одностраничная форма","Авторизация",
