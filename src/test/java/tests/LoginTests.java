@@ -89,4 +89,26 @@ public class LoginTests extends TestBase {
         step("Проверить приветствие Welcome, user1! в success-panel", () ->
                 $("[data-testid=welcome-message]").shouldHave(text("Добро пожаловать, user1!")));
     }
+
+
+    @Test
+    @AllureId("45746")
+    @Tag("positive")
+    @DisplayName("Успешная авторизация через login.html")
+    void successfulAuthorizationTest45746() {
+        step("Открыть login.html?ru", () ->
+                open("login.html?ru"));
+
+        step("Ввести user1 в поле логина", () ->
+                $("[data-testid=login-input]").setValue("user1"));
+
+        step("Ввести password1 в поле пароля", () ->
+                $("[data-testid=password-input]").setValue("password1"));
+
+        step("Нажать кнопку submit", () ->
+                $("[data-testid=submit-button]").click());
+
+        step("Проверить приветствие \"Добро пожаловать, user1!\"", () ->
+                $("[data-testid=welcome-message]").shouldHave(text("Добро пожаловать, user1!")));
+    }
 }
